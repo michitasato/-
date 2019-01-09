@@ -1,4 +1,24 @@
 <html>
-  <h1>{{ title }}</h1>
-  <p>{{ msg }}</p>
+  <body>
+    <h1>{{title}}</h1>
+    <p>{{message|safe}}</p>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>年月</th>
+        <th>店舗名</th>
+        <th>分類</th>
+        <th>金額</th>
+      </tr>
+    {% for item in data  %}
+      <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.account_date}}</td>
+        <td>{{item.shop}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.account}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  </body>
 </html>
