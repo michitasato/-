@@ -1,7 +1,18 @@
 <html>
   <body>
-    <h1>{{title}}</h1>
-    <p>{{message|safe}}</p>
+    <h1>最初のレコード表示</h1>
+    <p>これはサンプルページです。</p>
+       <!--説明書き -->
+    <p>検索条件：</p>
+    <!-- フォーム-->
+      <table>
+        <form actiom="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <tr><th></th><td><input type="submit" value="開始"></td></tr>
+        </form>
+      </table>　
+    <hr><!--水平線 -->
     <table>
       <tr>
         <th>ID</th>
