@@ -27,4 +27,37 @@
     </tr>
     {% endfor %}
   </table>
+<hr><!--水平線 -->
 {% endblock content %}
+
+
+
+<script>
+{% block  jquery %}
+
+var endpoint = 'api/'
+
+$.ajax({
+  method: "GET",
+  url: endpoint,
+  success: function(data){
+    console.log(data.sales)
+    console.log(data.customers)
+  },
+  error: function(error_data){
+    console.log("error")
+    console.log(error_data)
+  }
+})
+
+{% endblock %}
+</script>
+
+{% block chart %}
+  <h1>Hello chart</h1>
+{% endblock %}
+
+
+
+
+

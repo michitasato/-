@@ -5,7 +5,8 @@ from django import forms
 class FindForm(forms.Form):
     shop_data=[
             ('松茂店', '松茂店'),
-            ('羽ノ浦店', '羽ノ浦店'),
+            ('笠木店', '笠木店'),
+             ('矢上店', '矢上店'),
             ]
     category_data=[
             ('電気代', '電気代'),
@@ -18,4 +19,3 @@ class FindForm(forms.Form):
           choices=shop_data, widget=forms.SelectMultiple(attrs={'size':3}))
     category = forms.MultipleChoiceField(label='分類', \
           choices=category_data, widget=forms.SelectMultiple(attrs={'size':3}))
-    
