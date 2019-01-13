@@ -1,35 +1,30 @@
-<html>
-  <body>
-    <h1>最初のレコード表示</h1>
-    <p>これはサンプルページです。</p>
-       <!--説明書き -->
-    <p>検索条件：</p>
-    <!-- フォーム-->
-      <table>
-        <form actiom="{% url 'index' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_table }}
-        <tr><th></th><td><input type="submit" value="開始"></td></tr>
-        </form>
-      </table>　
-    <hr><!--水平線 -->
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>年月</th>
-        <th>店舗名</th>
-        <th>分類</th>
-        <th>金額</th>
-      </tr>
+{% extends 'base.html' %}
+
+{% block content %}
+  <table>
+    <form actiom="{% url 'index' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_table }}
+      <tr><th></th><td><input type="submit" value="開始"></td></tr>
+    </form>
+  </table>　
+  <hr><!--水平線 -->
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>年月</th>
+      <th>店舗名</th>
+      <th>分類</th>
+      <th>金額</th>
+    </tr>
     {% for item in data  %}
-      <tr>
-        <td>{{item.id}}</td>
-        <td>{{item.account_date}}</td>
-        <td>{{item.shop}}</td>
-        <td>{{item.category}}</td>
-        <td>{{item.account}}</td>
-      </tr>
+    <tr>
+      <td>{{item.id}}</td>
+      <td>{{item.account_date}}</td>
+      <td>{{item.shop}}</td>
+      <td>{{item.category}}</td>
+      <td>{{item.account}}</td>
+    </tr>
     {% endfor %}
-    </table>
-  </body>
-</html>
+  </table>
+{% endblock content %}
