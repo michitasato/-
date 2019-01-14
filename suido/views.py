@@ -25,11 +25,11 @@ class Index(View):
                 .order_by('account_date')\
                 .reverse()
          #グラフのラベル(日付）
-        x =  data.values_list('account_date', flat=True)
+        x =  data.values_list('account_date', flat=True).reverse()
         locale.setlocale(locale.LC_ALL, '')
         labels =[n.strftime('%Y年%m月') for n in x]
         #グラフの値（金額）
-        y = data.values_list('account', flat=True)
+        y = data.values_list('account', flat=True).reverse()
         default_items = list(y)
 
         params = {
@@ -37,13 +37,8 @@ class Index(View):
                 'data': data,
                 'labels': labels,
                 'default_items': default_items,
+                'chart_title': request.POST['shop'] + ' ' + request.POST['category'],
                 }
         return render(request, 'index.html', params)
 
-def get_data(request, *args, **kwargs):
-    data = {
-        'sales': 100,
-        'customers': 10,
-    }
-    return JsonResponse(data)
 

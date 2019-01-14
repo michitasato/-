@@ -11,7 +11,6 @@
   <hr><!--水平線 -->
   <table>
     <tr>
-      <th>ID</th>
       <th>年月</th>
       <th>店舗名</th>
       <th>分類</th>
@@ -19,7 +18,6 @@
     </tr>
     {% for item in data  %}
     <tr>
-      <td>{{item.id}}</td>
       <td>{{item.account_date}}</td>
       <td>{{item.shop}}</td>
       <td>{{item.category}}</td>
@@ -27,20 +25,22 @@
     </tr>
     {% endfor %}
   </table>
-  {{ labels }}
-  {{ default_items }}
 <hr><!--水平線 -->
 {% endblock content %}
-
-
 
 <script>
 {% block  jquery %}
 var endpoint = 'api/'
-var django_labels = {{ labels|safe }}
-console.log(django_labels)
+var defaoultData = []
+var labels = []
+
 var django_default_items = {{ default_items }}
-console.log(django_default_items)
+defaoultData = defaoultData.concat(django_default_items)
+var django_labels = {{ labels|safe }}
+labels = labels.concat(django_labels)
+
+console.log(defaoultData)
+console.log(labels)
 
 $.ajax({
   method: "GET",
@@ -55,21 +55,14 @@ $.ajax({
   }
 })
 
-{% endblock %}
-</script>
-
-{% block chart %}
-  <h1>Hello chart</h1>
-  <canvas id="myChart" width="400" height="400"></canvas>
-<script>
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '{{ chart_title }}',
+            data: defaoultData,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -99,11 +92,11 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-</script>
 
 {% endblock %}
+</script>
 
-
-
-
-
+{% block chart %}
+  <h2>{{ chart_title }}</h2>
+  <canvas id="myChart" width="400" height="400"></canvas>
+{% endblock %}
