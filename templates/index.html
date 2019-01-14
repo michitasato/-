@@ -27,6 +27,8 @@
     </tr>
     {% endfor %}
   </table>
+  {{ labels }}
+  {{ default_items }}
 <hr><!--水平線 -->
 {% endblock content %}
 
@@ -34,8 +36,11 @@
 
 <script>
 {% block  jquery %}
-
 var endpoint = 'api/'
+var django_labels = {{ labels|safe }}
+console.log(django_labels)
+var django_default_items = {{ default_items }}
+console.log(django_default_items)
 
 $.ajax({
   method: "GET",

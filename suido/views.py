@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
 
+import locale
+
 from .models import Data
 from .forms import FindForm
 
@@ -22,10 +24,19 @@ class Index(View):
                 .filter(category = request.POST['category'])\
                 .order_by('account_date')\
                 .reverse()
+         #グラフのラベル(日付）
+        x =  data.values_list('account_date', flat=True)
+        locale.setlocale(locale.LC_ALL, '')
+        labels =[n.strftime('%Y年%m月') for n in x]
+        #グラフの値（金額）
+        y = data.values_list('account', flat=True)
+        default_items = list(y)
 
         params = {
                 'form':FindForm(request.POST),
                 'data': data,
+                'labels': labels,
+                'default_items': default_items,
                 }
         return render(request, 'index.html', params)
 
