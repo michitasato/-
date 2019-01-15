@@ -4,7 +4,10 @@
   <table>
     <form actiom="{% url 'index' %}" method="post">
       {% csrf_token %}
-      {{ form.as_table }}
+      {{ form.start_date.label }}:{{ form.start_date }}
+      {{ form.end_date.label }}:{{ form.end_date }}
+      {{ form.shop.label }}:{{ form.shop }}
+      {{ form.category.label }}:{{ form.category }}
       <tr><th></th><td><input type="submit" value="開始"></td></tr>
     </form>
   </table>　
