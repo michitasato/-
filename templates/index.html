@@ -1,29 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <table>
-    <form actiom="{% url 'index' %}" method="post">
-      {% csrf_token %}
-      {{ form.start_date.label }}:{{ form.start_date }}
-      {{ form.end_date.label }}:{{ form.end_date }}
-      {{ form.shop.label }}:{{ form.shop }}
-      {{ form.category.label }}:{{ form.category }}
+  <form actiom="{% url 'index' %}" method="post">
+    {% csrf_token %}
+    <table class="table">{{ form.as_table }}</table>
       <tr><th></th><td><input type="submit" value="開始"></td></tr>
     </form>
-  </table>　
   <hr><!--水平線 -->
-  <table>
+  <h3>{{ chart_title }}</h3>
+  <table border="1" class="table table-striped">
     <tr>
       <th>年月</th>
-      <th>店舗名</th>
-      <th>分類</th>
       <th>金額</th>
     </tr>
     {% for item in data  %}
     <tr>
       <td>{{item.account_date}}</td>
-      <td>{{item.shop}}</td>
-      <td>{{item.category}}</td>
       <td>{{item.account}}</td>
     </tr>
     {% endfor %}
@@ -100,6 +92,10 @@ var myChart = new Chart(ctx, {
 </script>
 
 {% block chart %}
-  <h2>{{ chart_title }}</h2>
-  <canvas id="myChart" width="400" height="400"></canvas>
+
+<div class='row'>
+    <div class='col-sm-12' >
+  <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+  <canvas id="myChart" ></canvas>
+  </div>
 {% endblock %}
