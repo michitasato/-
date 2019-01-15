@@ -1,10 +1,17 @@
-<html>
-  <head>
-    <title>KBS経費管理</title>
-  </head>
-  <body>
-      <h1>KBS 水道光熱費管理ツール</h1>
-      <h2>条件を指定してください</h2>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>KBS経費管理</title>
+
+{% include 'base/css.html' %}
+</head>
+<body>
+      <h2>KBS 水道光熱費管理ツール</h2>
+      <p>条件を指定してください</p>
       <p>検索条件：</p>
     <div>
       {% block content %}
