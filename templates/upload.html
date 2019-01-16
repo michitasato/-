@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>csvファイルアップロード</title>
+
+{% include 'base/css.html' %}
+</head>
+
+<body>
+    <table class="table">
+    {% block content %}
+    <form action="" method="POST" enctype="multipart/form-data">
+      {{ form.as_ul }}
+      {% csrf_token %}
+      <button type="submit">送信</button>
+    </form>
+    {% endblock %}
+    </table>
+    <p><a href="{% url 'index' %}">トップページへ戻る</a></p>
+</body>
+</html>
+

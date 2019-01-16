@@ -4,6 +4,15 @@ from django.views.generic import View
 
 import locale
 
+# csv読み込みに使うモジュール
+import csv
+import io
+from django.urls import reverse_lazy, reverse
+from django.views import generic
+from .forms import CSVUploadForm
+from datetime import datetime as dt
+
+
 from .models import Data
 from .forms import FindForm
 
@@ -42,3 +51,24 @@ class Index(View):
         return render(request, 'index.html', params)
 
 
+# PostImport関数：CSVファイルをインポートして、DBに保管する。
+class PostImport(generic.FormView):
+    template_name = 'upload.html'
+    success_url = reverse_lazy('index')
+    form_class = CSVUploadForm
+
+    def form_valid(self, form):
+        # csv.readerに渡すため、TextIOWrapperでテキストモードなファイルに変換
+        csvfile = io.TextIOWrapper(form.cleaned_data['file'], encoding='cp932')
+        reader = csv.reader(csvfile)
+        header = next(reader) #headerを飛ばす処理
+        # 1行ずつ取り出し、作成していく
+        for row in reader:
+            post, created = Data.objects.get_or_create(account_date = row[1], \
+                                            shop = row[2], category = row[3])
+            post.account_date = row[1]
+            post.shop = row[2]
+            post.category = row[3]
+            post.account=int(row[4]) 
+            post.save()
+        return super().form_valid(form)

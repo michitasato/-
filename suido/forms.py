@@ -6,7 +6,9 @@ class FindForm(forms.Form):
     shop_data=[
             ('松茂店', '松茂店'),
             ('笠木店', '笠木店'),
-             ('矢上店', '矢上店'),
+            ('矢上店', '矢上店'),
+            ('羽ノ浦店', '羽ノ浦店'),
+            ('名東店', '名東店'),
             ]
     category_data=[
             ('電気代', '電気代'),
@@ -19,3 +21,14 @@ class FindForm(forms.Form):
           choices=shop_data, widget=forms.SelectMultiple(attrs={'size':3}))
     category = forms.MultipleChoiceField(label='分類', \
           choices=category_data, widget=forms.SelectMultiple(attrs={'size':3}))
+
+# CSVアップロード用のファーム
+class CSVUploadForm(forms.Form):
+    file = forms.FileField(label='CSVファイル', help_text='※拡張子csvのファイルをアップロードしてください。')
+    
+    def clean_file(self):
+        file = self.cleaned_data['file']
+        if file.name.endswith('.csv'):
+            return file
+        else:
+            raise forms.ValidationError('拡張子がcsvのファイルをアップロードしてください')
