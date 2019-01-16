@@ -4,11 +4,12 @@ from django import forms
 # レコードを検索するフォーム
 class FindForm(forms.Form):
     shop_data=[
-            ('松茂店', '松茂店'),
+            ('三加茂店', '三加茂店'),
+            ('名東店', '名東店'),
             ('笠木店', '笠木店'),
             ('矢上店', '矢上店'),
             ('羽ノ浦店', '羽ノ浦店'),
-            ('名東店', '名東店'),
+            ('松茂店', '松茂店'),
             ]
     category_data=[
             ('電気代', '電気代'),
@@ -25,7 +26,7 @@ class FindForm(forms.Form):
 # CSVアップロード用のファーム
 class CSVUploadForm(forms.Form):
     file = forms.FileField(label='CSVファイル', help_text='※拡張子csvのファイルをアップロードしてください。')
-    
+
     def clean_file(self):
         file = self.cleaned_data['file']
         if file.name.endswith('.csv'):

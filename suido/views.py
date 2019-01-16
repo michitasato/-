@@ -21,7 +21,6 @@ class Index(View):
         data = Data.objects.all().order_by('account_date').reverse()
         params = {
                 'form': FindForm(),
-                'data': data,
                 }
         return render(request, 'index.html', params)
 
@@ -69,6 +68,6 @@ class PostImport(generic.FormView):
             post.account_date = row[1]
             post.shop = row[2]
             post.category = row[3]
-            post.account=int(row[4]) 
+            post.account=int(row[4])
             post.save()
         return super().form_valid(form)
