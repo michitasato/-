@@ -30,7 +30,7 @@ class FindForm(forms.Form):
             ('通信費(電話・ｲﾝﾀｰﾈｯﾄ) ', '通信費(電話・ｲﾝﾀｰﾈｯﾄ)'),
             ('通信費(切手・郵送代・NHK)', '通信費(切手・郵送代・NHK)'),
             ]
-    start_date = forms.DateField(label='開始年月', required=False)
+    start_date = forms.DateField(label='開始年月', required=False, widget=forms.DateInput(attrs={'class': 'datepicker'}))
     end_date = forms.DateField(label='終了年月', required=False)
     shop = forms.MultipleChoiceField(label='店舗名', \
           choices=shop_data, widget=forms.SelectMultiple(attrs={'size':3}))

@@ -5,13 +5,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>KBS経費管理</title>
+<title>KBS 経費管理</title>
 
 {% include 'base/css.html' %}
 {% include 'base/js.html' %}
 <script>
   $(function() {
-    $("#datepicker").datepicker();
+    $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+  $(function() {
+    $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
   });
 </script>
 </head>
