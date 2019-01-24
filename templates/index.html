@@ -2,11 +2,14 @@
 {% load humanize %}
 
 {% block content %}
+
   <form actiom="{% url 'index' %}" method="post">
     {% csrf_token %}
     <table class="table">{{ form.as_table }}</table>
+    <input type="text" id="datepicker">
       <tr><th></th><td><input type="submit" value="開始"></td></tr>
     </form>
+
   <hr><!--水平線 -->
   <h3>{{ chart_title }}</h3>
   <table border="1" class="table table-striped">
@@ -87,3 +90,4 @@ var myChart = new Chart(ctx, {
   <canvas id="myChart" ></canvas>
   </div>
 {% endblock %}
+
