@@ -25,21 +25,17 @@
     </div>
 
     {% include 'base/js.html' %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
     <script>
-    var $d = jQuery.noConflict(); // ← 関数「$d」定義
-    $d(function() {
-      $d("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+    $(function() {
+      $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
     });
-    var $v = jQuery.noConflict(); // ← 関数「$v」定義
-    $v(function() {
-      $v("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
+    $(function() {
+      $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
     });
     </script>
 
     <script>
-    var $s = jQuery.noConflict(); // 関数「$s」定義
-    $s(document).ready(function(){
+    $(document).ready(function(){
     {% block jquery %}{% endblock %}
     })
     </script>
