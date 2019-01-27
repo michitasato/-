@@ -26,7 +26,7 @@
 
     {% include 'base/js.html' %}
 
-    <script>
+    {% comment %} <script>
     var $d = jQuery.noConflict(); // ← 関数「$d」定義
     $d(function() {
       $d("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
@@ -34,14 +34,14 @@
     $d(function() {
       $d("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
     });
-    </script>
+    </script> {% endcomment %}
 
-    {% comment %} <script>
+    <script>
     var $s = jQuery.noConflict(); // 関数「$s」定義
     $s(document).ready(function(){
     {% block jquery %}{% endblock %}
     })
-    </script> {% endcomment %}
+    </script>
 
   </body>
 </html>
