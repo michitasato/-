@@ -8,15 +8,7 @@
 <title>KBS 経費管理</title>
 
 {% include 'base/css.html' %}
-{% include 'base/js.html' %}
-<script>
-  $(function() {
-    $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
-  });
-  $(function() {
-    $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
-  });
-</script>
+
 </head>
 <body>
       <h2>KBS 経費管理ツール</h2>
@@ -31,7 +23,16 @@
       {% block chart %}
       {% endblock %}
     </div>
+    {% include 'base/js.html' %}
 
+    <script>
+  $(function() {
+    $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+  $(function() {
+    $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+</script>
     <script>
     $(document).ready(function(){
     {% block jquery %}{% endblock %}
