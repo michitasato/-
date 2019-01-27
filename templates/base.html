@@ -23,20 +23,25 @@
       {% block chart %}
       {% endblock %}
     </div>
+
     {% include 'base/js.html' %}
 
     <script>
-  $(function() {
-    $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
-  });
-  $(function() {
-    $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
-  });
-</script>
+    var $d = jQuery.noConflict(); // ← 関数「$d」定義
+    $d(function() {
+      $d("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+    });
+    $d(function() {
+      $d("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
+    });
+    </script>
+
     <script>
-    $(document).ready(function(){
+    var $s = jQuery.noConflict(); // 関数「$s」定義
+    $s(document).ready(function(){
     {% block jquery %}{% endblock %}
     })
     </script>
+
   </body>
 </html>
