@@ -27,9 +27,11 @@
     {% include 'base/js.html' %}
     <script>
     $(function() {
+      $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
       $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
     });
     $(function() {
+      $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
       $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
     });
     </script>
