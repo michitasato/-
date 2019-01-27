@@ -42,7 +42,7 @@ labels = labels.concat(django_labels)
 console.log(defaoultData)
 console.log(labels)
 
-$.ajax({
+{% comment %} $.ajax({
   method: "GET",
   url: endpoint,
   success: function(data){
@@ -53,7 +53,7 @@ $.ajax({
     console.log("error")
     console.log(error_data)
   }
-})
+}) {% endcomment %}
 
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
@@ -78,7 +78,6 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-
 {% endblock %}
 </script>
 
