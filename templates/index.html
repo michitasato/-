@@ -19,7 +19,7 @@
     </tr>
     {% for item in data  %}
     <tr>
-      <td>{{ item.account_date }}</td>
+      <td>{{ item.account_date |date:"Y年n月" }}</td>
       <td>{{　item.account | intcomma }}</td>
     </tr>
     {% endfor %}
