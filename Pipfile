@@ -10,6 +10,7 @@ django = "==2.1"
 django-debug-toolbar = "*"
 gunicorn = "==19.9.0"
 whitenoise = "==3.3.1"
+python-dateutil = "*"
 
 [requires]
 python_version = "3.7"

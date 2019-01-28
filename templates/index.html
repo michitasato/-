@@ -12,8 +12,11 @@
 
   <hr><!--水平線 -->
   <h3>{{ chart_title }}</h3>
+
   <table border="1" class="table table-striped">
     <tr>
+      <th>年月</th>
+      <th>金額</th>
       <th>年月</th>
       <th>金額</th>
     </tr>
@@ -21,9 +24,27 @@
     <tr>
       <td>{{ item.account_date |date:"Y年n月" }}</td>
       <td>{{　item.account | intcomma }}</td>
+      <td></td>
+      <td></td>
     </tr>
     {% endfor %}
   </table>
+
+<table border="1" class="table table-striped">
+    <tr>
+      <th>年月</th>
+      <th>金額</th>
+    </tr>
+    {% for item in data2 %}
+    <tr>
+      <td>{{ item.account_date |date:"Y年n月" }}</td>
+      <td>{{　item.account | intcomma }}</td>
+      <td></td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </table>
+
   <p><a href="{% url 'upload' %}">CSVアップロードページへ移動</a></p>　
 <hr><!--水平線 -->　
 {% endblock content %}

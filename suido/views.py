@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views.generic import View
 
 import locale
+#昨年のデータを求めるのに使用する
+from dateutil import relativedelta
 
 # csv読み込みに使うモジュール
 import csv
@@ -32,7 +34,7 @@ class Index(View):
                 .filter(category = request.POST['category'])\
                 .order_by('account_date')\
                 .reverse()
-         #グラフのラベル(日付）
+        #グラフのラベル(日付）
         x =  data.values_list('account_date', flat=True).reverse()
         locale.setlocale(locale.LC_ALL, '')
         labels =[n.strftime('%Y年%m月') for n in x]
@@ -40,9 +42,23 @@ class Index(View):
         y = data.values_list('account', flat=True).reverse()
         default_items = list(y)
 
+        sd = request.POST['start_date']
+        previous_year_start = sd - relativedelta.relativedelta(years=1)
+        ed = request.POST['end_date']
+        previous_year_end = ed - relativedelta.relativedelta(years=1)
+
+        data2 = Data.objects\
+        .filter(account_date__gte = previous_year_start,\
+                account_date__lte = previous_year_end)\
+                .filter(shop = request.POST['shop'])\
+                .filter(category = request.POST['category'])\
+                .order_by('account_date')\
+                .reverse()
+
         params = {
                 'form':FindForm(request.POST),
                 'data': data,
+                'data2': data2,
                 'labels': labels,
                 'default_items': default_items,
                 'chart_title': request.POST['shop'] + ' ' + request.POST['category'],
