@@ -3,8 +3,7 @@ from django.shortcuts import render
 from django.views.generic import View
 
 import locale
-#昨年のデータを求めるのに使用する
-from dateutil import relativedelta
+
 
 # csv読み込みに使うモジュール
 import csv
@@ -12,7 +11,7 @@ import io
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from .forms import CSVUploadForm
-from datetime import datetime as dt
+import datetime
 
 
 from .models import Data
@@ -43,13 +42,15 @@ class Index(View):
         default_items = list(y)
 
         sd = request.POST['start_date']
-        previous_year_start = sd - relativedelta.relativedelta(years=1)
+        sd = datetime.datetime.strptime(sd, '%Y-%m-%d')
+        previous_year_start = sd - datetime.timedelta(days=365)
         ed = request.POST['end_date']
-        previous_year_end = ed - relativedelta.relativedelta(years=1)
+        ed = datetime.datetime.strptime(ed, '%Y-%m-%d')
+        previous_year_end = ed - datetime.timedelta(days=365)
 
         data2 = Data.objects\
         .filter(account_date__gte = previous_year_start,\
-                account_date__lte = previous_year_end)\
+                account_date__lte = previous_year_end )\
                 .filter(shop = request.POST['shop'])\
                 .filter(category = request.POST['category'])\
                 .order_by('account_date')\
