@@ -18,7 +18,7 @@
       <TD>
   <table border="1" class="table table-striped">
     <tr>
-      <th>今年度データ</th>
+      <th>検索データ</th>
       <th>金額（円）</th>
     </tr>
     {% for item in data  %}
@@ -32,7 +32,7 @@
 <TD>
   <table border="1" class="table table-striped">
     <tr>
-      <th>昨年度データ</th>
+      <th>昨年データ</th>
       <th>金額（円）</th>
     </tr>
     {% for item in data2 %}
@@ -55,14 +55,18 @@
 var endpoint = 'api/'
 var defaoultData = []
 var labels = []
+var defaoultData2 = []
 
 var django_default_items = {{ default_items }}
 defaoultData = defaoultData.concat(django_default_items)
 var django_labels = {{ labels|safe }}
 labels = labels.concat(django_labels)
+var django_default_items2 = {{ default_items2 }}
+defaoultData2 = defaoultData2.concat(django_default_items2)
 
 console.log(defaoultData)
 console.log(labels)
+console.log(defaoultData2)
 
 {% comment %} $.ajax({
   method: "GET",
@@ -83,9 +87,15 @@ var myChart = new Chart(ctx, {
     data: {
         labels: labels,
         datasets: [{
-            label: '{{ chart_title }}',
+            label: '昨年データ',
+            data: defaoultData2,
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }, {
+            label: '検索データ',
             data: defaoultData,
-            backgroundColor: "rgba(255,153,0,0.4)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: 'rgba(255,99,132,1)',
             borderWidth: 1
         }]
@@ -97,6 +107,11 @@ var myChart = new Chart(ctx, {
                     beginAtZero:true
                 }
             }]
+        },
+        tooltips: {
+          enabled: true,
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          label: false,
         }
     }
 });

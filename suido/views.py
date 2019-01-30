@@ -48,6 +48,7 @@ class Index(View):
         ed = datetime.datetime.strptime(ed, '%Y-%m-%d')
         previous_year_end = ed - datetime.timedelta(days=365)
 
+
         data2 = Data.objects\
         .filter(account_date__gte = previous_year_start,\
                 account_date__lte = previous_year_end )\
@@ -56,12 +57,17 @@ class Index(View):
                 .order_by('account_date')\
                 .reverse()
 
+        #グラフの値（昨年の金額）
+        y2 = data2.values_list('account', flat=True).reverse()
+        default_items2= list(y2)
+
         params = {
                 'form':FindForm(request.POST),
                 'data': data,
                 'data2': data2,
                 'labels': labels,
                 'default_items': default_items,
+                'default_items2': default_items2,
                 'chart_title': request.POST['shop'] + ' ' + request.POST['category'],
                 }
         return render(request, 'index.html', params)
