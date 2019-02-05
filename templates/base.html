@@ -11,28 +11,49 @@
 
 </head>
 <body>
+  <div class="container">
       <h2>KBS 経費管理ツール</h2>
       <p>条件を指定してください</p>
       <p>検索条件：</p>
-    <div>
-      {% block content %}
-      {% endblock content %}
-    </div>
 
-    <div>
-      {% block chart %}
-      {% endblock %}
-    </div>
+  <form actiom="{% url 'index' %}" method="post">{% csrf_token %}
+    <table class="table">
+     {{ form.as_table}}
+    </table>
+      <tr><th></th><td><input class="btn btn-primary" type="submit" value="開始"></td></tr>
+    </form>
+<hr><!--水平線-->
+  <h3>{{ chart_title }}</h3>
+      <div class="row">
+        <div class="col-sm-4">{% block content %}{% endblock content %}</div>
+        <div class="col-sm-8">
+        {% block chart %}{% endblock %}
+          </div>
+        </div>
+      </div>
+  </div>
 
     {% include 'base/js.html' %}
     <script>
     $(function() {
       $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
-      $("#id_start_date").datepicker({ dateFormat: 'yy-mm-dd' });
+      $("#id_start_date").datepicker({
+        dateFormat: 'yy-mm-dd',
+        // 2017-10-1以降を選択可能
+        minDate: new Date(2017, 10 - 1, 1),
+        // 2018-12-31まで選択可能
+        maxDate: new Date(2018, 12 - 1, 31),
+        });
     });
     $(function() {
       $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
-      $("#id_end_date").datepicker({ dateFormat: 'yy-mm-dd' });
+      $("#id_end_date").datepicker({
+        dateFormat: 'yy-mm-dd',
+        // 2017-10-1以降を選択可能
+        minDate: new Date(2017, 10 - 1, 1),
+        // 2018-12-31まで選択可能
+        maxDate: new Date(2018, 12 - 1, 31),
+        });
     });
     </script>
 

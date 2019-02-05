@@ -26,11 +26,11 @@ class FindForm(forms.Form):
             ('電気代', '電気代'),
             ('水道代', '水道代'),
             ('ガス代', 'ガス代'),
-            ('通信費(電話・ｲﾝﾀｰﾈｯﾄ) ', '通信費(電話・ｲﾝﾀｰﾈｯﾄ)'),
-            ('通信費(切手・郵送代・NHK)', '通信費(切手・郵送代・NHK)'),
+            #('通信費(電話・ｲﾝﾀｰﾈｯﾄ) ', '通信費(電話・ｲﾝﾀｰﾈｯﾄ)'),
+            #('通信費(切手・郵送代・NHK)', '通信費(切手・郵送代・NHK)'),
             ]
-    start_date = forms.DateField(label='開始年月')
-    end_date = forms.DateField(label='終了年月')
+    start_date = forms.DateField(label='開始年月(いつから)')
+    end_date = forms.DateField(label='終了年月（いつまで）')
     shop = forms.MultipleChoiceField(label='店舗名', \
           choices=shop_data, widget=forms.SelectMultiple(attrs={'size':3}))
     category = forms.MultipleChoiceField(label='分類', \

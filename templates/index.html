@@ -3,15 +3,7 @@
 
 {% block content %}
 
-  <form actiom="{% url 'index' %}" method="post">{% csrf_token %}
-    <table class="table">
-     {{ form.as_table}}
-    </table>
-      <tr><th></th><td><input class="btn btn-primary" type="submit" value="開始"></td></tr>
-    </form>
 
-  <hr><!--水平線 -->
-  <h3>{{ chart_title }}</h3>
 
   <TABLE BORDER="0">
       <TR>
@@ -24,7 +16,7 @@
     {% for item in data  %}
     <tr>
       <td>{{ item.account_date |date:"Y年n月" }}</td>
-      <td>{{　item.account | intcomma }}</td>
+      <td align="right">{{　item.account | intcomma }}</td>
     </tr>
     {% endfor %}
   </table>
@@ -38,16 +30,14 @@
     {% for item in data2 %}
     <tr>
       <td>{{ item.account_date |date:"Y年n月" }}</td>
-      <td>{{　item.account | intcomma }}</td>
+      <td align="right">{{　item.account | intcomma }}</td>
     </tr>
     {% endfor %}
   </table>
 </TD>
 </TR>
 </TABLE>
-
   <p><a href="{% url 'upload' %}">CSVアップロードページへ移動</a></p>　
-<hr><!--水平線 -->　
 {% endblock content %}
 
 <script>
@@ -119,10 +109,7 @@ var myChart = new Chart(ctx, {
 </script>
 
 {% block chart %}
-<h3>{{ chart_title }}</h3>
-<div class='row'>
-    <div class='col-sm-12' >
-  <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+  <div class="chart-container" style="position: relative; height:60vh; width:60vw">
   <canvas id="myChart" ></canvas>
   </div>
 {% endblock %}
