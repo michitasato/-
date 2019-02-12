@@ -70,7 +70,7 @@ class Index(View):
                 'default_items2': default_items2,
                 'chart_title': request.POST['shop'] + ' ' + request.POST['category'],
                 }
-        return render(request, 'index.html', params)
+        return render(request, 'chart.html', params)
 
 
 # PostImport関数：CSVファイルをインポートして、DBに保管する。

@@ -3,114 +3,43 @@
 
 {% block content %}
 
+<p>条件を指定してください</p>
+<p>検索条件：</p>
 
+<!--入力フォーム-->
+<form actiom="{% url 'index' %}" method="post">{% csrf_token %}
+<table class="table">
+ {{ form.as_table}}
+</table>
+  <tr><th></th><td><input class="btn btn-primary" type="submit" value="開始"></td></tr>
+</form>
 
-  <TABLE BORDER="0">
-      <TR>
-      <TD>
-  <table border="1" class="table table-striped">
-    <tr>
-      <th>検索データ</th>
-      <th>金額（円）</th>
-    </tr>
-    {% for item in data  %}
-    <tr>
-      <td>{{ item.account_date |date:"Y年n月" }}</td>
-      <td align="right">{{　item.account | intcomma }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-</TD>
-<TD>
-  <table border="1" class="table table-striped">
-    <tr>
-      <th>昨年データ</th>
-      <th>金額（円）</th>
-    </tr>
-    {% for item in data2 %}
-    <tr>
-      <td>{{ item.account_date |date:"Y年n月" }}</td>
-      <td align="right">{{　item.account | intcomma }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-</TD>
-</TR>
-</TABLE>
-  <p><a href="{% url 'upload' %}">CSVアップロードページへ移動</a></p>　
-{% endblock content %}
+<hr><!--水平線-->
+<p><a href="{% url 'upload' %}">CSVアップロードページへ移動</a></p>
 
+{% include 'base/js.html' %}
 <script>
-{% block  jquery %}
-var endpoint = 'api/'
-var defaoultData = []
-var labels = []
-var defaoultData2 = []
-
-var django_default_items = {{ default_items }}
-defaoultData = defaoultData.concat(django_default_items)
-var django_labels = {{ labels|safe }}
-labels = labels.concat(django_labels)
-var django_default_items2 = {{ default_items2 }}
-defaoultData2 = defaoultData2.concat(django_default_items2)
-
-console.log(defaoultData)
-console.log(labels)
-console.log(defaoultData2)
-
-{% comment %} $.ajax({
-  method: "GET",
-  url: endpoint,
-  success: function(data){
-    console.log(data.sales)
-    console.log(data.customers)
-  },
-  error: function(error_data){
-    console.log("error")
-    console.log(error_data)
-  }
-}) {% endcomment %}
-
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: '昨年データ',
-            data: defaoultData2,
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }, {
-            label: '検索データ',
-            data: defaoultData,
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        },
-        tooltips: {
-          enabled: true,
-          backgroundColor: 'rgba(0,0,0,0.8)',
-          label: false,
-        }
-    }
+$(function() {
+  $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
+  $("#id_start_date").datepicker({
+    dateFormat: 'yy-mm-dd',
+    // 2017-10-1以降を選択可能
+    minDate: new Date(2017, 10 - 1, 1),
+    // 2018-12-31まで選択可能
+    maxDate: new Date(2018, 12 - 1, 31),
+    });
 });
-{% endblock %}
+$(function() {
+  $.datepicker.setDefaults( $.datepicker.regional[ "ja" ] );
+  $("#id_end_date").datepicker({
+    dateFormat: 'yy-mm-dd',
+    // 2017-10-1以降を選択可能
+    minDate: new Date(2017, 10 - 1, 1),
+    // 2018-12-31まで選択可能
+    maxDate: new Date(2018, 12 - 1, 31),
+    });
+});
 </script>
 
-{% block chart %}
-  <div class="chart-container" style="position: relative; height:60vh; width:60vw">
-  <canvas id="myChart" ></canvas>
-  </div>
-{% endblock %}
 
+{% endblock %}
