@@ -9,4 +9,3 @@ class Data(models.Model):
     def __str__(self):
         return 'ID:' + str(self.id) + ',' + str(self.account_date) + ',' + self.shop + ',' +  \
             self.category + ',' + str(self.account) + '円'
-
