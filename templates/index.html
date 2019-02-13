@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <p>条件を指定してください</p>
 <p>検索条件：</p>
-
 <!--入力フォーム-->
 <form actiom="{% url 'index' %}" method="post">{% csrf_token %}
 <table class="table">
@@ -39,5 +37,4 @@ $(function() {
     });
 });
 </script>
-
 {% endblock %}

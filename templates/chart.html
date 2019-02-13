@@ -2,117 +2,117 @@
 {% load humanize %}
 
 {% block content %}
-
+<!--検索結果の表題-->
 <h3>{{ chart_title }}</h3>
 <div class="row">
 <div class="col-sm-4">
-<!--結果テーブル-->
- <TABLE BORDER="0">
-      <TR>
+<!--検索結果のテーブル-->
+  <TABLE BORDER="0">
+    <TR>
       <TD>
-  <table border="1" class="table table-striped">
-    <tr>
-      <th>検索データ</th>
-      <th>金額（円）</th>
-    </tr>
-    {% for item in data  %}
-    <tr>
-      <td>{{ item.account_date |date:"Y年n月" }}</td>
-      <td align="right">{{　item.account | intcomma }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-</TD>
-<TD>
-  <table border="1" class="table table-striped">
-    <tr>
-      <th>昨年データ</th>
-      <th>金額（円）</th>
-    </tr>
-    {% for item in data2 %}
-    <tr>
-      <td>{{ item.account_date |date:"Y年n月" }}</td>
-      <td align="right">{{　item.account | intcomma }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-</TD>
-</TR>
-</TABLE>
+        <table border="1" class="table table-striped">
+          <tr>
+          <th>検索データ</th>
+          <th>金額（円）</th>
+          </tr>
+          {% for item in data  %}
+          <tr>
+          <td>{{ item.account_date |date:"Y年n月" }}</td>
+          <td align="right">{{　item.account | intcomma }}</td>
+          </tr>
+          {% endfor %}
+          </table>
+      </TD>
+      <TD>
+        <table border="1" class="table table-striped">
+        <tr>
+          <th>昨年データ</th>
+          <th>金額（円）</th>
+          </tr>
+          {% for item in data2 %}
+          <tr>
+          <td>{{ item.account_date |date:"Y年n月" }}</td>
+          <td align="right">{{　item.account | intcomma }}</td>
+        </tr>
+          {% endfor %}
+        </table>
+       </TD>
+     </TR>
+  </TABLE>
 </div>
-
 {% endblock content %}
 
 {% block chart %}
 <!--chart.js-->
 {% include 'base/js.html' %}
 <script>
-        $(document).ready(function(){
-        var endpoint = 'api/'
-        var defaoultData = []
-        var labels = []
-        var defaoultData2 = []
+  $(document).ready(function(){
+  var endpoint = 'api/'
+  var defaoultData = []
+  var labels = []
+  var defaoultData2 = []
         
-        var django_default_items = {{ default_items }}
-        defaoultData = defaoultData.concat(django_default_items)
-        var django_labels = {{ labels|safe }}
-        labels = labels.concat(django_labels)
-        var django_default_items2 = {{ default_items2 }}
-        defaoultData2 = defaoultData2.concat(django_default_items2)
+  var django_default_items = {{ default_items }}
+  defaoultData = defaoultData.concat(django_default_items)
+  var django_labels = {{ labels|safe }}
+  labels = labels.concat(django_labels)
+  var django_default_items2 = {{ default_items2 }}
+  defaoultData2 = defaoultData2.concat(django_default_items2)
         
-        console.log(defaoultData)
-        console.log(labels)
-        console.log(defaoultData2)
+  console.log(defaoultData)
+  console.log(labels)
+  console.log(defaoultData2)
         
-        {% comment %} $.ajax({
-          method: "GET",
-          url: endpoint,
-          success: function(data){
-            console.log(data.sales)
-            console.log(data.customers)
-          },
-          error: function(error_data){
-            console.log("error")
-            console.log(error_data)
-          }
-        }) {% endcomment %}
+  {% comment %} $.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+      console.log(data.sales)
+      console.log(data.customers)
+    },
+    error: function(error_data){
+      console.log("error")
+      console.log(error_data)
+    }
+  }) {% endcomment %}
         
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '昨年データ',
-                    data: defaoultData2,
-                    backgroundColor: "rgba(54, 162, 235, 0.2)",
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }, {
-                    label: '検索データ',
-                    data: defaoultData,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: 'rgba(255,99,132,1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                },
-                tooltips: {
-                  enabled: true,
-                  backgroundColor: 'rgba(0,0,0,0.8)',
-                  label: false,
-                }
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+  labels: labels,
+  datasets: [{
+    label: '昨年データ',
+    data: defaoultData2,
+    backgroundColor: "rgba(54, 162, 235, 0.2)",
+    borderColor: 'rgba(54, 162, 235, 1)',
+    borderWidth: 1
+    }, {
+    label: '検索データ',
+    data: defaoultData,
+    backgroundColor: "rgba(255, 99, 132, 0.2)",
+    borderColor: 'rgba(255,99,132,1)',
+    borderWidth: 1
+    }]
+      },
+  options: {
+      scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero:true
+              }
+          }]
+      },
+  tooltips: {
+    enabled: true,
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    label: false,
             }
-        });
-    })
+        }
+    });
+})
 </script>
+
 <!--チャート描画場所-->
 <div class="col-sm-8">  
 <div class="chart-container" style="position: relative; height:60vh; width:60vw">
